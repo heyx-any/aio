@@ -6,29 +6,24 @@
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ *   
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.engdream;
+package org.engdream.common.base;
 
-import org.engdream.common.base.support.SimpleBaseRepositoryFactoryBean;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.NoRepositoryBean;
+
+import java.io.Serializable;
 
 /**
  * @author heyx
  */
-@EnableJpaRepositories(basePackages = {"org.engdream"},
-        repositoryFactoryBeanClass = SimpleBaseRepositoryFactoryBean.class
-)
-@SpringBootApplication
-public class App {
-    public static void main(String[] args) {
-        SpringApplication.run(App.class, args);
-    }
+@NoRepositoryBean
+public interface BaseRepository<T extends BaseEntity<ID>, ID extends Serializable>
+        extends JpaRepository<T, ID> {
 }

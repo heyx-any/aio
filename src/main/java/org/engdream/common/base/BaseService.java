@@ -13,22 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.engdream;
+package org.engdream.common.base;
 
-import org.engdream.common.base.support.SimpleBaseRepositoryFactoryBean;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.Serializable;
 
 /**
  * @author heyx
  */
-@EnableJpaRepositories(basePackages = {"org.engdream"},
-        repositoryFactoryBeanClass = SimpleBaseRepositoryFactoryBean.class
-)
-@SpringBootApplication
-public class App {
-    public static void main(String[] args) {
-        SpringApplication.run(App.class, args);
+public abstract class BaseService<T extends BaseEntity<ID>, ID extends Serializable> {
+    protected BaseRepository<T, ID> baseRepository;
+    @Autowired
+    public void setBaseRepository(BaseRepository<T, ID> baseRepository) {
+        this.baseRepository = baseRepository;
+    }
+
+    public T save(T entity){
+        return baseRepository.save(entity);
     }
 }
