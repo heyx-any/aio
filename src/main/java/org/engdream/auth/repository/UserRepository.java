@@ -16,10 +16,10 @@
 package org.engdream.auth.repository;
 
 import org.engdream.auth.entity.User;
-import org.engdream.common.base.BaseRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @author heyx
  */
-public interface UserRepository extends BaseRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 }

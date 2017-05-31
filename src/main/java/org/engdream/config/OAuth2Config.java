@@ -13,24 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.engdream.auth.entity;
-
-import lombok.*;
-import org.engdream.common.base.BaseEntity;
-
-import javax.persistence.Entity;
+package org.engdream.config;
 
 /**
  * @author heyx
  */
-@Getter
-@Setter
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@Entity
-public class User extends BaseEntity<Long> {
-    private String username;
+public class OAuth2Config {
 }

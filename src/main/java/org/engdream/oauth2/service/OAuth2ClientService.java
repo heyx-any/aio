@@ -13,32 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.engdream.auth.web.controller;
+package org.engdream.oauth2.service;
 
-import io.swagger.annotations.ApiOperation;
-import org.engdream.auth.entity.User;
-import org.engdream.auth.service.UserService;
+import org.engdream.oauth2.entity.OAuth2Client;
+import org.engdream.oauth2.repository.OAuth2ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
 
 /**
  * @author heyx
  */
-@RestController
-@RequestMapping("api/v1/auth/user")
-public class UserController {
+@Service
+public class OAuth2ClientService {
     @Autowired
-    private UserService userService;
+    private OAuth2ClientRepository oAuth2ClientRepository;
 
-    @ApiOperation(value = "get user by id")
-    @GetMapping("/{userId}")
-    public User getUser(@PathVariable Long userId){
-        return userService.findById(userId);
+    public OAuth2Client findByClientId(String clientId) {
+        return oAuth2ClientRepository.findByClientId(clientId);
     }
 
-    @ApiOperation(value = "create user")
-    @PostMapping
-    public User createUser(User user){
-        return userService.save(user);
+    public OAuth2Client findByClientSecret(String clientSecret) {
+        return oAuth2ClientRepository.findByClientSecret(clientSecret);
     }
 }

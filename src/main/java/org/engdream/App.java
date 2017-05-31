@@ -15,17 +15,12 @@
  */
 package org.engdream;
 
-import org.engdream.common.base.support.SimpleBaseRepositoryFactoryBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
  * @author heyx
  */
-@EnableJpaRepositories(basePackages = {"org.engdream"},
-        repositoryFactoryBeanClass = SimpleBaseRepositoryFactoryBean.class
-)
 @SpringBootApplication
 public class App {
     public static void main(String[] args) {

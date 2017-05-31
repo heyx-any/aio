@@ -13,17 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.engdream.common.base;
+package org.engdream.oauth2.repository;
 
+import org.engdream.oauth2.entity.OAuth2User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.NoRepositoryBean;
-
-import java.io.Serializable;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author heyx
  */
-@NoRepositoryBean
-public interface BaseRepository<T extends BaseEntity<ID>, ID extends Serializable>
-        extends JpaRepository<T, ID> {
+@Repository
+public interface OAuth2UserRepository extends JpaRepository<OAuth2User, Long> {
 }

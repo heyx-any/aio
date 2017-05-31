@@ -16,12 +16,26 @@
 package org.engdream.auth.service;
 
 import org.engdream.auth.entity.User;
-import org.engdream.common.base.BaseService;
+import org.engdream.auth.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  * @author heyx
  */
 @Service
-public class UserService extends BaseService<User, Long> {
+public class UserService {
+    @Autowired
+    private UserRepository userRepository;
+    public User save(User user){
+        return userRepository.save(user);
+    }
+
+    public User update(User user) {
+        return userRepository.save(user);
+    }
+
+    public User findById(Long userId) {
+        return userRepository.findOne(userId);
+    }
 }

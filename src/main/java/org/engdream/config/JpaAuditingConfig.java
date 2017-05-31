@@ -13,24 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.engdream.auth.entity;
+package org.engdream.config;
 
-import lombok.*;
-import org.engdream.common.base.BaseEntity;
-
-import javax.persistence.Entity;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 /**
  * @author heyx
  */
-@Getter
-@Setter
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@Entity
-public class User extends BaseEntity<Long> {
-    private String username;
+@Configuration
+@EnableJpaAuditing
+public class JpaAuditingConfig {
 }

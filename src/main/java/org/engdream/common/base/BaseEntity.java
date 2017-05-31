@@ -18,11 +18,9 @@ package org.engdream.common.base;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -31,14 +29,15 @@ import java.util.Date;
  */
 @Data
 @MappedSuperclass
-public class BaseEntity<ID extends Serializable> {
+@EntityListeners(AuditingEntityListener.class)
+public class BaseEntity<ID extends Serializable> implements Serializable {
     @Id
     @GeneratedValue
     private ID id;
     @CreatedDate
     @Column(name = "create_date")
-    private Date createDate;
+    private Date createDate = new Date();
     @LastModifiedDate
     @Column(name = "modified_date")
-    private Date modifiedDate;
+    private Date modifiedDate = new Date();
 }

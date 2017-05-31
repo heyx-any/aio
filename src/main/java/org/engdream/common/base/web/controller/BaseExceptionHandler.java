@@ -13,24 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.engdream.auth.entity;
+package org.engdream.common.base.web.controller;
 
-import lombok.*;
-import org.engdream.common.base.BaseEntity;
-
-import javax.persistence.Entity;
+import org.apache.shiro.authz.UnauthorizedException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
  * @author heyx
  */
-@Getter
-@Setter
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@Entity
-public class User extends BaseEntity<Long> {
-    private String username;
+@ControllerAdvice
+public class BaseExceptionHandler {
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<String> unauthorized(){
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("unauthorized");
+    }
 }

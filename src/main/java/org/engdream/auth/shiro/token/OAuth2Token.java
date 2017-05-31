@@ -6,19 +6,36 @@
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ *   
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.engdream.common.base;
+package org.engdream.auth.shiro.token;
 
-import java.io.Serializable;
+import lombok.Getter;
+import org.apache.shiro.authc.AuthenticationToken;
 
 /**
  * @author heyx
  */
-public abstract class BaseController<T extends BaseEntity<ID>, ID extends Serializable> {
+@Getter
+public class OAuth2Token implements AuthenticationToken {
+    private String authCode;
+    private String principal;
+
+    public OAuth2Token(String authCode) {
+        this.authCode = authCode;
+    }
+    @Override
+    public Object getPrincipal() {
+        return null;
+    }
+
+    @Override
+    public Object getCredentials() {
+        return null;
+    }
 }

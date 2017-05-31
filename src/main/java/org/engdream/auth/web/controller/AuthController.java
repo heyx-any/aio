@@ -15,30 +15,34 @@
  */
 package org.engdream.auth.web.controller;
 
-import io.swagger.annotations.ApiOperation;
-import org.engdream.auth.entity.User;
-import org.engdream.auth.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * @author heyx
  */
 @RestController
-@RequestMapping("api/v1/auth/user")
-public class UserController {
-    @Autowired
-    private UserService userService;
+@RequestMapping
+public class AuthController {
 
-    @ApiOperation(value = "get user by id")
-    @GetMapping("/{userId}")
-    public User getUser(@PathVariable Long userId){
-        return userService.findById(userId);
+    @PostMapping("/login")
+    public ResponseEntity<String> login(String username, String password){
+        Assert.notNull(username, "username must not be null");
+        Assert.notNull(password, "password must not be null");
+        if("admin".equals(username) && "123456".equals(password)){
+            return ResponseEntity.ok("success");
+        }
+        return ResponseEntity.ok("error");
     }
 
-    @ApiOperation(value = "create user")
-    @PostMapping
-    public User createUser(User user){
-        return userService.save(user);
+    @GetMapping("/authorize")
+    public String authorize(){
+        return "authorize";
+    }
+
+    @GetMapping("/unauthorized")
+    public String unauthorized(){
+        return "unauthorized";
     }
 }

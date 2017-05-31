@@ -15,7 +15,10 @@
  */
 package org.engdream.auth.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.engdream.common.base.BaseEntity;
 
 import javax.persistence.Entity;
@@ -23,14 +26,11 @@ import javax.persistence.Entity;
 /**
  * @author heyx
  */
-@Getter
-@Setter
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
+@Entity
+@Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Entity
-public class User extends BaseEntity<Long> {
-    private String username;
+public class Resource extends BaseEntity<Long> {
+    private String resource;
 }

@@ -13,24 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.engdream.common.base;
+package org.engdream.config;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.io.Serializable;
+import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author heyx
  */
-public class BaseCrudController<T extends BaseEntity<ID>, ID extends Serializable>
-        extends BaseController<T, ID> {
-
-    protected BaseService<T, ID> baseService;
-
-    @Autowired
-    public void setBaseService(BaseService<T, ID> baseService) {
-        this.baseService = baseService;
+@Configuration
+public class ModelMapperConfig {
+    @Bean
+    public ModelMapper modelMapper(){
+        return new ModelMapper();
     }
-
 }
