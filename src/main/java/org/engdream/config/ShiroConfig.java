@@ -17,9 +17,11 @@ package org.engdream.config;
 
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
-import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.engdream.auth.shiro.filter.OAuth2AuthenticationFilter;
+import org.engdream.auth.shiro.filter.mgt.CustomDefaultFilterChainManager;
+import org.engdream.auth.shiro.filter.mgt.CustomPathMatchingFilterChainResolver;
 import org.engdream.auth.shiro.realm.UserRealm;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
@@ -58,7 +60,7 @@ public class ShiroConfig {
     public Filter getOAuth2Filter(){
         return new OAuth2AuthenticationFilter();
     }
-
+/*
     @Bean("shiroFilterFactoryBean")
     public ShiroFilterFactoryBean getShiroFilterFactoryBean() {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -73,16 +75,41 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setFilters(filters);
 
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/manager/**", "authc");
-        filterChainDefinitionMap.put("/api/**", "oauth2");
-        filterChainDefinitionMap.put("/**", "anon");
+        filterChainDefinitionMap.put("/manager*//**", "authc");
+        filterChainDefinitionMap.put("*//**", "anon");
         shiroFilterFactoryBean
                 .setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
+    }*/
+
+    @Bean("filterChainManager")
+    public CustomDefaultFilterChainManager getCustomDefaultFilterChainManager() {
+        CustomDefaultFilterChainManager filterChainManager = new CustomDefaultFilterChainManager();
+        filterChainManager.setLoginUrl("/login");
+        filterChainManager.setSuccessUrl("/");
+        filterChainManager.setUnauthorizedUrl("/unauthorized");
+
+        Map<String, Filter> filters = new HashMap<>();
+        filters.put("oauth2", getOAuth2Filter());
+        filterChainManager.setCustomFilters(filters);
+
+        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+        filterChainDefinitionMap.put("/manager/**", "authc");
+        filterChainDefinitionMap.put("/**", "anon");
+        filterChainManager.setFilterChainDefinitionMap(filterChainDefinitionMap);
+        return filterChainManager;
+    }
+
+    @Bean("filterChainResolver")
+    public PathMatchingFilterChainResolver getPathMatchingFilterChainResolver() {
+        CustomPathMatchingFilterChainResolver filterChainResolver = new CustomPathMatchingFilterChainResolver();
+        filterChainResolver.setCustomDefaultFilterChainManager(getCustomDefaultFilterChainManager());
+        return filterChainResolver;
     }
 
     @Bean(name = "lifecycleBeanPostProcessor")
     public LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
         return new LifecycleBeanPostProcessor();
     }
+
 }

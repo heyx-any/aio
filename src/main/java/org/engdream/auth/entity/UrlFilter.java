@@ -13,10 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.engdream.config;
+package org.engdream.auth.entity;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author heyx
  */
-public class MvcWebApplicationInitializer {
+@Data
+@NoArgsConstructor
+@Entity
+@Table(name = "url_filter")
+public class UrlFilter {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String name;
+    private String url;
+    private String roles;
+    private String permissions;
 }
